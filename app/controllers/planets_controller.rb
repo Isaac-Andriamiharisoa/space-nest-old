@@ -1,6 +1,4 @@
 class PlanetsController < ApplicationController
-  # before_action set_planet, only: :update
-
   def index
     @planets = Planet.all
   end
@@ -27,23 +25,23 @@ class PlanetsController < ApplicationController
   end
 
   def update
-    @planet.update(planet_params)
-    redirect_to planet_path(@planet)
+    @planet = Planet.find(params[:id])
+    if @planet.update(planet_params)
+      redirect_to planet_path(@planet)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
     @planet = Planet.find(params[:id])
     @planet.destroy
-    redirect_to lists_path, status: :see_other
+    redirect_to planets_path, status: :see_other
   end
 
   private
 
-  def set_planet
-    @planet = Planet.find(params[:id])
-  end
-
   def planet_params
-    params.require(:planet).permit(%i[name details price distance user_id])
+    params.require(:planet).permit(%i[name details price distance])
   end
 end
