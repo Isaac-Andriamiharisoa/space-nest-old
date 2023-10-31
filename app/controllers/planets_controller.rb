@@ -39,6 +39,13 @@ class PlanetsController < ApplicationController
     redirect_to planets_path, status: :see_other
   end
 
+  def create_booking
+    planet_id = 1
+    # user_id = 1
+    start_date = 'a'
+    end_date = 'e'
+  end
+
   private
 
   def planet_params
